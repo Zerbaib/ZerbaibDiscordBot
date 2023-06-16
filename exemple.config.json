@@ -1,9 +1,14 @@
 {
-    "extensions": [
-      "rank",
-      "customVoice",
-      "mod"
-    ],
+  "extensions": [
+    "rank",
+    "customVoice",
+    "mod"
+  ],
+  "level_roles": {
+    "10": 1234567890,
+    "25": 2345678901,
+    "50": 3456789012
+  },
     "token": "YOUR_BOT_TOKEN",
     "app_id": "YOUR_APP_ID",
     "target_channel_id": "TARGET_VOICE_CHANNEL_ID",
