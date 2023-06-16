@@ -43,13 +43,13 @@ class RankCog(commands.Cog):
             self.ranks[user_id] = {"xp": 0, "level": 0}
 
         self.ranks[user_id]["xp"] += random.randint(1, 10)
-        xp = self.data[user_id]["xp"]
-        lvl = self.data[user_id]["level"]
+        xp = self.ranks[user_id]["xp"]
+        lvl = self.ranks[user_id]["level"]
 
         xp_required = 5 * (lvl ** 2) + 10 * lvl + 10
 
         if xp >= xp_required:
-            self.data[user_id]["level"] = lvl + 1
+            self.ranks[user_id]["level"] = lvl + 1
             self.save_data()
             await self.check_level_roles(message.author, lvl)  # Vérifier les rôles pour le niveau atteint
             embed = disnake.Embed(
