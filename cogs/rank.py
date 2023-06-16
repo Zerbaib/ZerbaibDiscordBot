@@ -42,7 +42,7 @@ class RankCog(commands.Cog):
     def calculate_next_level_xp(self, current_xp):
         current_level = self.calculate_level(current_xp)
         next_level = current_level + 1
-        next_level_xp = (next_level - self.base_level) * 10
+        next_level_xp = self.base_level + (next_level - self.base_level) * 2
         return int(next_level_xp)
 
     @commands.Cog.listener()
@@ -142,4 +142,4 @@ class RankCog(commands.Cog):
         print('RankCog cog is ready!')
 
 def setup(bot):
-    bot.add_cog(RankCog(bot, embed_color=0x00ff00, base_level=1, level_factor=0.1))
+    bot.add_cog(RankCog(bot, embed_color=0x00ff00, base_level=0, level_factor=0.1))
