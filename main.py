@@ -7,7 +7,10 @@ with open('config.json', 'r') as config_file:
     config = json.load(config_file)
 
 # Créer une instance de bot
-bot = commands.Bot(command_prefix='!')
+intents = disnake.Intents.default()
+intents.message_content = False  # Désactiver la récupération du contenu des messages
+
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
 async def on_ready():
