@@ -129,7 +129,7 @@ class RankCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('RankCog cog is ready!')
+        print('Rank cog is ready!')
 
 def setup(bot):
     bot.add_cog(RankCog(bot, embed_color=0x00ff00, base_level=1, level_factor=0.1))
