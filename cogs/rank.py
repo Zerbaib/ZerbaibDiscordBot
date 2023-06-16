@@ -7,7 +7,7 @@ class RankCog(commands.Cog):
     def __init__(self, bot, embed_color, base_level, level_factor):
         self.bot = bot
         self.data_path = 'data/ranks.json'
-        self.embed_color = embed_color
+        self.embed_color = embed_color  # Utiliser la couleur personnalisée
         self.base_level = base_level
         self.level_factor = level_factor
         self.load_data()
@@ -96,6 +96,10 @@ class RankCog(commands.Cog):
                 return i+1
 
         return -1
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print('RankCog cog is ready!')
 
 def setup(bot):
     bot.add_cog(RankCog(bot, embed_color=0x00ff00, base_level=1, level_factor=0.1))
