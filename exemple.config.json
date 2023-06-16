@@ -2,12 +2,18 @@
   "extensions": [
     "rank",
     "customVoice",
-    "mod"
+    "mod",
+    "role_on_join"
   ],
   "level_roles": {
     "10": 1234567890,
     "25": 2345678901,
     "50": 3456789012
+  },
+  "roles": {
+    "role_id_1": true,
+    "role_id_2": true,
+    "role_id_3": true
   },
     "token": "YOUR_BOT_TOKEN",
     "app_id": "YOUR_APP_ID",
