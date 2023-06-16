@@ -1,5 +1,7 @@
 import disnake
 from disnake.ext import commands
+import platform
+import os
 import json
 
 # Charger les informations de configuration depuis config.json
@@ -15,7 +17,16 @@ bot = commands.InteractionBot(intents=intents)
 
 @bot.event
 async def on_ready():
-    print(f'Connecté en tant que {bot.user}')
+    with open('config.json', 'r') as config_file:
+        config = json.load(config_file)
+    print('===============================================')
+    print("The bot is ready!")
+    print(f'Logged in as {bot.user.name}#{bot.user.discriminator} | {bot.user.id}')
+    print(f'Running on {platform.system()} {platform.release()} ({os.name})')
+    print(f'Bot version: {config.get("bot_version", "")}')
+    print(f"Disnake version : {disnake.__version__}")
+    print(f"Python version: {platform.python_version()}")
+    print('===============================================')
 
     # Charger le cog StatusCog
     try:
