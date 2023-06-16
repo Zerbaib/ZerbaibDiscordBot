@@ -3,9 +3,9 @@ from disnake.ext import commands
 import json
 
 class AutoRoleCog(commands.Cog):
-    def __init__(self, bot, config_file):
+    def __init__(self, bot):
         self.bot = bot
-        self.config_file = config_file
+        self.config_file = "config.json"
         self.load_config()
 
     def load_config(self):
@@ -27,5 +27,4 @@ class AutoRoleCog(commands.Cog):
         print('AutoRole cog is ready!')
 
 def setup(bot):
-    config_file = 'config.json'  # Remplacez par le chemin vers votre fichier de configuration JSON
-    bot.add_cog(AutoRoleCog(bot, config_file))
+    bot.add_cog(AutoRoleCog(bot))
