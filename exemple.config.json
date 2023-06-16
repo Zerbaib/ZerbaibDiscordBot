@@ -2,7 +2,7 @@
   "extensions": [
     "rank",
     "customVoice",
-    "mod",
+    "moderation",
     "autorole",
     "status"
   ],
@@ -29,5 +29,5 @@
   "server_id": 123456789,
   "target_channel_id": 123456789,
   "embed_color": "00ff00",
-  "bot_version": "BETA v2.11.1"
+  "bot_version": "BETA v2.11.2"
 }
