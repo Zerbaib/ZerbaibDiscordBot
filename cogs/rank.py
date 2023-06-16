@@ -4,7 +4,7 @@ import json
 import os
 from operator import itemgetter
 
-class rank(commands.Cog):
+class RankCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.data_path = 'data/ranks.json'
@@ -64,4 +64,4 @@ class rank(commands.Cog):
         await inter.response.send_message(embed=embed)
 
 def setup(bot):
-    bot.add_cog(rank(bot))
+    bot.add_cog(RankCog(bot))
