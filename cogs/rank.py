@@ -39,6 +39,12 @@ class RankCog(commands.Cog):
     def calculate_level(self, xp):
         return self.base_level + int((xp ** self.level_factor) / 100)
 
+    def calculate_next_level_xp(self, current_xp):
+        current_level = self.calculate_level(current_xp)
+        next_level = current_level + 1
+        next_level_xp = ((next_level - self.base_level) * 100) ** (1 / self.level_factor)
+        return int(next_level_xp)
+
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.author.bot:
@@ -53,9 +59,13 @@ class RankCog(commands.Cog):
         if level > self.ranks[user_id]["level"]:
             self.ranks[user_id]["level"] = level
             await self.check_level_roles(message.author, level)  # Vérifier les rôles pour le niveau atteint
+            
+            next_level_xp = self.calculate_next_level_xp(self.ranks[user_id]["xp"])
+            countdown = next_level_xp - self.ranks[user_id]["xp"]
+            
             embed = disnake.Embed(
                 title=f'Congratulations, {message.author.name}!',
-                description=f'You reached level {level}!',
+                description=f'You reached level {level}!\n\nNext Level: {countdown} XP remaining',
                 color=self.embed_color
             )
             msg = await message.channel.send(embed=embed)
@@ -83,10 +93,12 @@ class RankCog(commands.Cog):
         if user_id in self.ranks:
             xp = self.ranks[user_id]["xp"]
             level = self.ranks[user_id]["level"]
+            next_level_xp = self.calculate_next_level_xp(xp)
+            countdown = next_level_xp - xp
 
             embed = disnake.Embed(
                 title=f"{user_name}'s rank -> #{self.get_user_rank(user_id)}",
-                description=f'**Level:** ```{level}```\n**XP:** ``{xp}``',
+                description=f'**Level:** ```{level}```\n**XP:** ``{xp}``\n\nNext Level: {countdown} XP remaining',
                 color=self.embed_color
             )
 
