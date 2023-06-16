@@ -2,16 +2,32 @@
   "extensions": [
     "rank",
     "customVoice",
-    "mod"
+    "mod",
+    "autorole",
+    "status"
   ],
   "level_roles": {
-    "10": 1234567890,
-    "25": 2345678901,
-    "50": 3456789012
+    "10": 123456789,
+    "25": 123456789,
+    "50": 123456789
   },
-    "token": "YOUR_BOT_TOKEN",
-    "app_id": "YOUR_APP_ID",
-    "target_channel_id": "TARGET_VOICE_CHANNEL_ID",
-    "embed_color": "00ff00"
-  }
-  
+  "auto_roles": {
+    "role_id_1": true,
+    "role_id_2": true,
+    "role_id_3": true
+  },
+  "status_messages": [
+    "status 1",
+    "{member_count}",
+    "{bot_version}"
+  ],
+  "status_type": "playing",
+  "status_interval": 60,
+
+  "token": "YOUR_BOT_TOKEN",
+  "app_id": "YOUR_APP_ID",
+  "server_id": 123456789,
+  "target_channel_id": 123456789,
+  "embed_color": "00ff00",
+  "bot_version": "BETA v2.11.1"
+}
