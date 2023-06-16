@@ -15,7 +15,7 @@ class AutoRoleCog(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         guild = member.guild
-        roles = self.config.get('roles', {})
+        roles = self.config.get('auto_roles', {})
 
         for role_id in roles:
             role = guild.get_role(role_id)
