@@ -37,12 +37,12 @@ class RankCog(commands.Cog):
             json.dump(self.config, config_file, indent=4)
 
     def calculate_level(self, xp):
-        return self.base_level + int((xp ** self.level_factor) / 100)
+        return self.base_level + int(xp / 10)
 
     def calculate_next_level_xp(self, current_xp):
         current_level = self.calculate_level(current_xp)
         next_level = current_level + 1
-        next_level_xp = (next_level - self.base_level) * 10000
+        next_level_xp = (next_level - self.base_level) * 10
         return int(next_level_xp)
 
     @commands.Cog.listener()
