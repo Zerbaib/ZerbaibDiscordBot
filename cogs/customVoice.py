@@ -22,12 +22,13 @@ class CustomVoiceCog(commands.Cog):
     async def on_voice_state_update(self, member, before, after):
         if after.channel and after.channel.id == self.config.get('target_channel_id'):
             guild = member.guild
+            category = after.channel.category  # Get the category of the joined channel
             overwrites = {
                 guild.default_role: disnake.PermissionOverwrite(connect=False),
                 member: disnake.PermissionOverwrite(connect=True)
             }
 
-            channel = await guild.create_voice_channel(name=member.name, overwrites=overwrites, category=after.channel.category)
+            channel = await guild.create_voice_channel(name=member.name, overwrites=overwrites, category=category)
 
             await member.move_to(channel)
 
