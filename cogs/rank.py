@@ -7,7 +7,7 @@ class RankCog(commands.Cog):
     def __init__(self, bot, embed_color, base_level, level_factor):
         self.bot = bot
         self.data_path = 'data/ranks.json'
-        self.embed_color = embed_color  # Utiliser la couleur personnalisée
+        self.embed_color = embed_color
         self.base_level = base_level
         self.level_factor = level_factor
         self.load_data()
@@ -39,7 +39,13 @@ class RankCog(commands.Cog):
         level = self.calculate_level(self.ranks[user_id]["xp"])
         if level > self.ranks[user_id]["level"]:
             self.ranks[user_id]["level"] = level
-            await message.channel.send(f'Congratulations, {message.author.mention}! You reached level {level}!')
+            embed = disnake.Embed(
+                title=f'Congratulations, {message.author.name}!',
+                description=f'You reached level {level}!',
+                color=self.embed_color
+            )
+            msg = await message.channel.send(embed=embed)
+            await msg.delete(delay=5)  # Supprimer le message après 5 secondes
 
         self.save_data()
 
@@ -47,7 +53,7 @@ class RankCog(commands.Cog):
     async def rank(self, inter: disnake.ApplicationCommandInteraction, user: disnake.User = None):
         if user is None:
             user_id = str(inter.author.id)
-            user_name = str(inter.author)
+            user_name = str(inter.author.name)
         else:
             user_id = str(user.id)
             user_name = str(user)
@@ -57,8 +63,8 @@ class RankCog(commands.Cog):
             level = self.ranks[user_id]["level"]
 
             embed = disnake.Embed(
-                title=f'{user_name} is rank #{self.get_user_rank(user_id)}',
-                description=f'Level: {level}\nXP: {xp}',
+                title=f"{user_name}'s rank -> #{self.get_user_rank(user_id)}",
+                description=f'**Level:** ```{level}```\n**XP:** ``{xp}``',
                 color=self.embed_color
             )
 
@@ -76,7 +82,7 @@ class RankCog(commands.Cog):
         )
 
         for i, (user_id, data) in enumerate(sorted_ranks[:10]):
-            user = self.bot.get_user(int(user_id))
+            user = await self.bot.fetch_user(int(user_id))
             if user is None:
                 user_name = f'Unknown User ({user_id})'
             else:
@@ -85,7 +91,7 @@ class RankCog(commands.Cog):
             xp = data["xp"]
             level = data["level"]
 
-            embed.add_field(name=f'{i+1}. {user_name}', value=f'Level: {level}\nXP: {xp}', inline=False)
+            embed.add_field(name=f'{i+1}. {user_name}', value=f'Level: ``{level}``\nXP: ``{xp}``', inline=False)
 
         await inter.response.send_message(embed=embed)
 
