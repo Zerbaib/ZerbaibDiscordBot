@@ -7,10 +7,12 @@ class RankCog(commands.Cog):
     def __init__(self, bot, embed_color, base_level, level_factor):
         self.bot = bot
         self.data_path = 'data/ranks.json'
+        self.config_path = 'config.json'
         self.embed_color = embed_color
         self.base_level = base_level
         self.level_factor = level_factor
         self.load_data()
+        self.load_config()
 
     def load_data(self):
         if os.path.exists(self.data_path):
@@ -22,6 +24,17 @@ class RankCog(commands.Cog):
     def save_data(self):
         with open(self.data_path, 'w') as data_file:
             json.dump(self.ranks, data_file, indent=4)
+
+    def load_config(self):
+        if os.path.exists(self.config_path):
+            with open(self.config_path, 'r') as config_file:
+                self.config = json.load(config_file)
+        else:
+            self.config = {}
+
+    def save_config(self):
+        with open(self.config_path, 'w') as config_file:
+            json.dump(self.config, config_file, indent=4)
 
     def calculate_level(self, xp):
         return self.base_level + int((xp ** self.level_factor) / 100)
@@ -39,6 +52,7 @@ class RankCog(commands.Cog):
         level = self.calculate_level(self.ranks[user_id]["xp"])
         if level > self.ranks[user_id]["level"]:
             self.ranks[user_id]["level"] = level
+            await self.check_level_roles(message.author, level)  # Vérifier les rôles pour le niveau atteint
             embed = disnake.Embed(
                 title=f'Congratulations, {message.author.name}!',
                 description=f'You reached level {level}!',
@@ -48,6 +62,14 @@ class RankCog(commands.Cog):
             await msg.delete(delay=5)  # Supprimer le message après 5 secondes
 
         self.save_data()
+
+    async def check_level_roles(self, user, level):
+        if 'level_roles' in self.config:
+            for level_threshold, role_id in self.config['level_roles'].items():
+                if level >= int(level_threshold):
+                    role = user.guild.get_role(role_id)
+                    if role:
+                        await user.add_roles(role)
 
     @commands.slash_command(name='rank', description='Displays your current rank or the rank of a user')
     async def rank(self, inter: disnake.ApplicationCommandInteraction, user: disnake.User = None):
