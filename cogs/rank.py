@@ -32,18 +32,8 @@ class RankCog(commands.Cog):
         else:
             self.config = {}
 
-    def save_config(self):
-        with open(self.config_path, 'w') as config_file:
-            json.dump(self.config, config_file, indent=4)
-
     def calculate_level(self, xp):
-        return self.base_level + int(xp / 10)
-
-    def calculate_next_level_xp(self, current_xp):
-        current_level = self.calculate_level(current_xp)
-        next_level = current_level + 1
-        next_level_xp = self.base_level + (next_level - self.base_level) * 2
-        return int(next_level_xp)
+        return self.base_level + int((xp ** self.level_factor) / 100)
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -60,12 +50,9 @@ class RankCog(commands.Cog):
             self.ranks[user_id]["level"] = level
             await self.check_level_roles(message.author, level)  # Vérifier les rôles pour le niveau atteint
             
-            next_level_xp = self.calculate_next_level_xp(self.ranks[user_id]["xp"])
-            countdown = next_level_xp - self.ranks[user_id]["xp"]
-            
             embed = disnake.Embed(
                 title=f'Congratulations, {message.author.name}!',
-                description=f'You reached level {level}!\n\nNext Level: {countdown} XP remaining',
+                description=f'You reached level {level}!',
                 color=self.embed_color
             )
             msg = await message.channel.send(embed=embed)
@@ -93,12 +80,10 @@ class RankCog(commands.Cog):
         if user_id in self.ranks:
             xp = self.ranks[user_id]["xp"]
             level = self.ranks[user_id]["level"]
-            next_level_xp = self.calculate_next_level_xp(xp)
-            countdown = next_level_xp - xp
 
             embed = disnake.Embed(
                 title=f"{user_name}'s rank -> #{self.get_user_rank(user_id)}",
-                description=f'**Level:** ```{level}```\n**XP:** ``{xp}``\n\nNext Level: {countdown} XP remaining',
+                description=f'**Level:** ```{level}```\n**XP:** ``{xp}``',
                 color=self.embed_color
             )
 
@@ -142,4 +127,4 @@ class RankCog(commands.Cog):
         print('RankCog cog is ready!')
 
 def setup(bot):
-    bot.add_cog(RankCog(bot, embed_color=0x00ff00, base_level=0, level_factor=0.1))
+    bot.add_cog(RankCog(bot, embed_color=0x00ff00, base_level=1, level_factor=0.1))
