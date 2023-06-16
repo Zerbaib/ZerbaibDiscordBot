@@ -5,9 +5,10 @@ import os
 from operator import itemgetter
 
 class RankCog(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot, embed_color):
         self.bot = bot
         self.data_path = 'data/ranks.json'
+        self.embed_color = int(embed_color, 16)  # Convert hex color to integer
         self.load_data()
 
     def load_data(self):
@@ -53,7 +54,7 @@ class RankCog(commands.Cog):
             embed = disnake.Embed(
                 title='Rank',
                 description=f'The rank of {user_name} is: {rank}\nLevel: {level}',
-                color=0x00ff00
+                color=self.embed_color
             )
 
             await inter.response.send_message(embed=embed)
@@ -66,7 +67,7 @@ class RankCog(commands.Cog):
         
         embed = disnake.Embed(
             title='Top 10 Leaderboard',
-            color=0x00ff00
+            color=self.embed_color
         )
 
         for i, (user_id, rank) in enumerate(sorted_ranks[:10]):
@@ -82,4 +83,8 @@ class RankCog(commands.Cog):
         await inter.response.send_message(embed=embed)
 
 def setup(bot):
-    bot.add_cog(RankCog(bot))
+    with open('config.json', 'r') as config_file:
+        config = json.load(config_file)
+
+    embed_color = config.get("embed_color", "00ff00")  # Default embed color is green (hex: 00ff00)
+    bot.add_cog(RankCog(bot, embed_color))
