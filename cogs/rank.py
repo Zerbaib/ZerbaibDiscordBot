@@ -42,19 +42,20 @@ class RankCog(commands.Cog):
         if user_id not in self.ranks:
             self.ranks[user_id] = {"xp": 0, "level": 0}
 
-        self.ranks[user_id]["xp"] += random.randint(1, 10)
+        self.ranks[user_id]["xp"] += random.randint(1, 5)
         xp = self.ranks[user_id]["xp"]
         lvl = self.ranks[user_id]["level"]
 
-        xp_required = 5 * (lvl ** 2) + 10 * lvl + 10
+        xp_required = 7 * (lvl ** 2) + 10 * lvl + 10
 
         if xp >= xp_required:
             self.ranks[user_id]["level"] = lvl + 1
             self.save_data()
             await self.check_level_roles(message.author, lvl)  # Vérifier les rôles pour le niveau atteint
+            xp_required = 7 * (lvl+1 ** 2) + 10 * lvl+1 + 10
             embed = disnake.Embed(
                 title=f'Congratulations, {message.author.name}!',
-                description=f'You reached level {lvl}!',
+                description=f'**You reached level **```{lvl + 1}```\n*You need ``{xp_required}`` xp for the next level*',
                 color=self.embed_color
             )
             msg = await message.channel.send(embed=embed)
