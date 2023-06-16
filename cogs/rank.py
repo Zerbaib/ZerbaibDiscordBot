@@ -21,6 +21,22 @@ class RankCog(commands.Cog):
         with open(self.data_path, 'w') as data_file:
             json.dump(self.ranks, data_file, indent=4)
 
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        if message.author.bot:
+            return
+
+        user_id = str(message.author.id)
+        if user_id not in self.ranks:
+            self.ranks[user_id] = 0
+
+        self.ranks[user_id] += 1
+        self.save_data()
+
+        if self.ranks[user_id] % 10 == 0:
+            level = self.ranks[user_id] // 10
+            await message.channel.send(f'Congratulations, {message.author.mention}! You reached level {level}!')
+
     @commands.slash_command(name='rank', description='Displays your current rank or the rank of a user')
     async def rank(self, inter: disnake.ApplicationCommandInteraction, user: disnake.User = None):
         if user is None:
@@ -32,10 +48,11 @@ class RankCog(commands.Cog):
         
         if user_id in self.ranks:
             rank = self.ranks[user_id]
+            level = rank // 10
 
             embed = disnake.Embed(
                 title='Rank',
-                description=f'The rank of {user_name} is: {rank}',
+                description=f'The rank of {user_name} is: {rank}\nLevel: {level}',
                 color=0x00ff00
             )
 
@@ -59,7 +76,8 @@ class RankCog(commands.Cog):
             else:
                 user_name = str(user)
 
-            embed.add_field(name=f'{i+1}. {user_name}', value=f'Rank: {rank}', inline=False)
+            level = rank // 10
+            embed.add_field(name=f'{i+1}. {user_name}', value=f'Rank: {rank}\nLevel: {level}', inline=False)
 
         await inter.response.send_message(embed=embed)
 
