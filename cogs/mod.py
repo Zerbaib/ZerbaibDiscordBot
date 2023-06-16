@@ -92,7 +92,7 @@ class ModerationCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('ModerationCog cog is ready!')
+        print('Moderation cog is ready!')
 
 def setup(bot):
     bot.add_cog(ModerationCog(bot))

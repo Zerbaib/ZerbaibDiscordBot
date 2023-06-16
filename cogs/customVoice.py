@@ -36,7 +36,7 @@ class CustomVoiceCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('CustomVoiceCog cog is ready!')
+        print('CustomVoice cog is ready!')
 
 def setup(bot):
     bot.add_cog(CustomVoiceCog(bot))
