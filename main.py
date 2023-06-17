@@ -15,18 +15,6 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
 async def on_ready():
-    with open('config.json', 'r') as config_file:
-        config = json.load(config_file)
-    print('===============================================')
-    print("The bot is ready!")
-    print(f'Logged in as {bot.user.name}#{bot.user.discriminator} | {bot.user.id}')
-    print(f'Running on {platform.system()} {platform.release()} ({os.name})')
-    print(f'Bot version: {config.get("bot_version", "")}')
-    print(f"Disnake version : {disnake.__version__}")
-    print(f"Python version: {platform.python_version()}")
-    print('===============================================')
-
-    # Charger les autres cogs depuis le dossier "cogs"
     for extension in config['extensions']:
         name = extension['name']
         enabled = extension['enabled']
@@ -39,6 +27,15 @@ async def on_ready():
                 print(f'Erreur lors du chargement du cog {name} : {str(e)}')
         else:
             print(f'Cog désactivé : {name}')
+
+    print('===============================================')
+    print("The bot is ready!")
+    print(f'Logged in as {bot.user.name}#{bot.user.discriminator} | {bot.user.id}')
+    print(f'Running on {platform.system()} {platform.release()} ({os.name})')
+    print(f'Bot version: {config.get("bot_version", "")}')
+    print(f"Disnake version : {disnake.__version__}")
+    print(f"Python version: {platform.python_version()}")
+    print('===============================================')
 
 
 # Lancer le bot
