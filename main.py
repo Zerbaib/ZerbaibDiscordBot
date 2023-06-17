@@ -8,10 +8,10 @@ import json
 with open('config.json', 'r') as config_file:
     config = json.load(config_file)
 
-# Créer une instance de bot
-intents = disnake.Intents.default()
+# Créer une instance de bot avec tous les intents activés
+intents = disnake.Intents.all()
 
-bot = commands.InteractionBot(intents=intents)
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
 async def on_ready():
