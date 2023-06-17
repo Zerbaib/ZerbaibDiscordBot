@@ -1,0 +1,43 @@
+{
+    "role_menus": [
+        {
+        "channel_id": 1086900866918924389,
+        "title": "What is you language",
+        "description": "Select your language",
+        "options": [
+                {
+                "label": "🇺🇲",
+                "value": "english",
+                "role_id": 1086847822483161129
+                },
+                {
+                "label": "🇫🇷",
+                "value": "french",
+                "role_id": 1086847768615727134
+                }
+            ]
+        },
+        {
+        "channel_id": 1086900866918924389,
+        "title": "What do you like",
+        "description": "Select what do you want",
+        "options": [
+                {
+                "label": "Computer",
+                "value": "computer",
+                "role_id": 3333333333
+                },
+                {
+                "label": "Video Games",
+                "value": "videogames",
+                "role_id": 4444444444
+                },
+                {
+                "label": "ADs",
+                "value": "ads",
+                "role_id": 5555555555
+                }
+            ]
+        }
+    ]
+}

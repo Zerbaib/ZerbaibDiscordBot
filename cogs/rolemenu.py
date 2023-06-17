@@ -6,19 +6,27 @@ class RoleMenuCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = self.load_config()
+        self.rmenu = self.load_rconfig()
         self.role_menus = {}
 
-    def load_config(self):
-        with open('config.json', 'r') as config_file:
+    def load_rconfig(self):
+        with open('config/rolemenue.json', 'r') as config_file:
             return json.load(config_file)
 
+    def load_config(self):
+        with open('config/config.json', 'r') as config_file:
+            return json.load(config_file)
+
+    def save_rconfig(self):
+        with open('config/rolemenue.json', 'w') as config_file:
+            json.dump(self.rmenu, config_file, indent=4)
+
     def save_config(self):
-        with open('config.json', 'w') as config_file:
+        with open('config/config.json', 'w') as config_file:
             json.dump(self.config, config_file, indent=4)
 
     async def create_role_menu(self, channel_id, title, description, options):
-        guild = self.bot.get_guild(self.config['server_id'])
-        channel = guild.get_channel(channel_id)
+        channel = self.bot.get_channel(channel_id)
         if not channel:
             print(f'Invalid channel ID: {channel_id}')
             return
@@ -40,7 +48,7 @@ class RoleMenuCog(commands.Cog):
     async def on_ready(self):
         print('Role Menu cog is ready!')
 
-        for menu in self.config['role_menus']:
+        for menu in self.rmenu['role_menus']:
             channel_id = menu['channel_id']
             title = menu['title']
             description = menu['description']
@@ -49,11 +57,14 @@ class RoleMenuCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_button_click(self, inter):
+        if not isinstance(inter, disnake.ButtonInteraction):
+            return
+
         if inter.message.id not in self.role_menus:
             return
 
         menu = self.role_menus[inter.message.id]
-        selected_option = next((option for option in menu['options'] if option['value'] == inter.custom_id), None)
+        selected_option = next((option for option in menu['options'] if option['value'] == inter.component.custom_id), None)
         if not selected_option:
             return
 
@@ -76,7 +87,7 @@ class RoleMenuCog(commands.Cog):
     async def update_role_menus(self, inter):
         self.role_menus = {}
 
-        for menu in self.config['role_menus']:
+        for menu in self.rmenu['role_menus']:
             channel_id = menu['channel_id']
             title = menu['title']
             description = menu['description']
