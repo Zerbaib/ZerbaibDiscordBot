@@ -12,7 +12,7 @@ class HelpCog(commands.Cog):
             disnake.Option(
                 name='category',
                 description='The category of commands to display',
-                type=disnake.OptionType.STRING,
+                type=3,
                 required=False
             )
         ]
