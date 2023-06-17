@@ -1,33 +1,10 @@
 {
   "extensions": [
-<<<<<<< HEAD
-    {
-      "name": "rank",
-      "enabled": true
-    },
-    {
-      "name": "customVoice",
-      "enabled": true
-    },
-    {
-      "name": "moderation",
-      "enabled": true
-    },
-    {
-      "name": "autorole",
-      "enabled": true
-    },
-    {
-      "name": "status",
-      "enabled": true
-    }
-=======
     "rank",
     "customVoice",
     "moderation",
     "autorole",
     "status"
->>>>>>> parent of cb2e0ce ([NEW] cog help for help commande)
   ],
   "level_roles": {
     "10": 123456789,
