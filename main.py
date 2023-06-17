@@ -13,7 +13,7 @@ intents = disnake.Intents.default()
 intents.message_content = False  # Désactiver la récupération du contenu des messages
 intents.members = True
 
-bot = commands.Bot(intents=intents)
+bot = commands.InteractionBot(intents=intents)
 
 @bot.event
 async def on_ready():
@@ -32,7 +32,7 @@ async def on_ready():
     for extension in config['extensions']:
         name = extension['name']
         enabled = extension['enabled']
-        
+
         if enabled:
             try:
                 bot.load_extension(f'cogs.{name}')
@@ -41,6 +41,7 @@ async def on_ready():
                 print(f'Erreur lors du chargement du cog {name} : {str(e)}')
         else:
             print(f'Cog désactivé : {name}')
+
 
 # Lancer le bot
 bot.run(config['token'])
