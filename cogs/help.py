@@ -19,7 +19,7 @@ class HelpCog(commands.Cog):
                 description='The cog to display commands for',
                 required=True,
                 choices=[
-                    disnake.OptionChoice(name=cog, value=cog) for cog in self.config['extensions'] if cog != 'help'
+                    disnake.OptionChoice(name=cog, value=cog) for cog in config['extensions'] if cog != 'help'
                 ]
             )
         ]
@@ -34,12 +34,8 @@ class HelpCog(commands.Cog):
         commands = cog_obj.get_commands()
 
         if not commands:
-            embed = disnake.Embed(
-                title=f'Commands in {cog_name}',
-                description='This cog doesn\'t have commands.',
-                color=disnake.Color.red()
-            )
-            await inter.response.send_message(embed=embed)
+            message = 'This cog doesn\'t have commands.'
+            await inter.response.send_message(content=message)
             return
 
         embed = disnake.Embed(title=f'Commands in {cog_name}', color=disnake.Color.blurple())
