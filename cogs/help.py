@@ -2,10 +2,12 @@ import disnake
 from disnake.ext import commands
 import json
 
+with open('config.json', 'r') as config_file:
+    config = json.load(config_file)
+
 class HelpCog(commands.Cog):
-    def __init__(self, bot, config):
+    def __init__(self, bot):
         self.bot = bot
-        self.config = config
 
     @commands.slash_command(
         name='help',
@@ -17,7 +19,7 @@ class HelpCog(commands.Cog):
                 description='The cog to display commands for',
                 required=True,
                 choices=[
-                    disnake.OptionChoice(name=cog, value=cog) for cog in self.config['extensions'] if cog != 'help'
+                    disnake.OptionChoice(name=cog, value=cog) for cog in config['extensions'] if cog != 'help'
                 ]
             )
         ]
@@ -46,6 +48,4 @@ class HelpCog(commands.Cog):
         print('Help cog is ready!')
 
 def setup(bot):
-    with open('config.json', 'r') as config_file:
-        config = json.load(config_file)
-    bot.add_cog(HelpCog(bot, config))
+    bot.add_cog(HelpCog(bot))

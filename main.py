@@ -13,7 +13,7 @@ intents = disnake.Intents.default()
 intents.message_content = False  # Désactiver la récupération du contenu des messages
 intents.members = True
 
-bot = commands.Bot(command_prefix='!', intents=intents)
+bot = commands.Bot(intents=intents)
 
 @bot.event
 async def on_ready():
