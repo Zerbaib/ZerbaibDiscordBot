@@ -88,7 +88,7 @@ class RankCog(commands.Cog):
             xp_required = 5 * (level ** 2) + 10 * level + 10
             embed = disnake.Embed(
                 title=f"{user_name}'s rank -> #{self.get_user_rank(user_id)}",
-                description=f'**Level:** ```{level}```\n**XP:** ``{xp}``\n*You need* ``{xp_required}`` *to win one level*',
+                description=f'**Level:** ```{level}```\n**XP:** ``{xp}``\n*Need* ``{xp_required}`` *to win one level*',
                 color=self.embed_color
             )
 
