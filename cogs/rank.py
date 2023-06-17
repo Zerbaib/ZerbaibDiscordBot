@@ -12,6 +12,7 @@ class RankCog(commands.Cog):
         self.embed_color = embed_color
         self.base_level = base_level
         self.level_factor = level_factor
+        self.data = {}
         self.load_data()
         self.load_config()
 
