@@ -96,28 +96,19 @@ class RankCog(commands.Cog):
         else:
             await inter.response.send_message(f'{user_name} does not have a rank yet.')
 
-    @commands.slash_command(name='leaderboard', description='Displays the top 10 leaderboard')
+    @commands.slash_command(name='leaderboard', description='Show the top 10 xp leaderboard')
     async def leaderboard(self, inter: disnake.ApplicationCommandInteraction):
-        sorted_ranks = sorted(self.ranks.items(), key=lambda x: x[1]["xp"], reverse=True)
-        
-        embed = disnake.Embed(
-            title='Top 10 Leaderboard',
-            color=self.embed_color
-        )
-
-        for i, (user_id, data) in enumerate(sorted_ranks[:10]):
-            user = await self.bot.fetch_user(int(user_id))
-            if user is None:
-                user_name = f'Unknown User ({user_id})'
-            else:
-                user_name = str(user)
-
-            xp = data["xp"]
-            level = data["level"]
-
-            embed.add_field(name=f'{i+1}. {user_name}', value=f'Level: ``{level}``\nXP: ``{xp}``', inline=False)
-
-        await inter.response.send_message(embed=embed)
+        sorted_users = sorted(self.data.items(), key=lambda x: (x[1]["level"], x[1]["xp"]), reverse=True)
+        embed = disnake.Embed(title="Leaderboard", color=self.embed_color)
+        for i, (user_id, user_data) in enumerate(sorted_users):
+            try:
+                user = await self.bot.fetch_user(int(user_id))
+                embed.add_field(name=f"{i+1}. {user.name}", value=f"```Level: {user_data['level']} | XP: {user_data['xp']}```", inline=False)
+            except disnake.NotFound:
+                pass
+            if i == 9:
+                break
+        await inter.send(embed=embed)
 
     def get_user_rank(self, user_id):
         sorted_ranks = sorted(self.ranks.items(), key=lambda x: x[1]["xp"], reverse=True)
