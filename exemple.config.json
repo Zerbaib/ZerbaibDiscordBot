@@ -2,7 +2,7 @@
   "extensions": [
     "rank",
     "customVoice",
-    "mod",
+    "moderation",
     "autorole",
     "status"
   ],
@@ -16,18 +16,19 @@
     "role_id_2": true,
     "role_id_3": true
   },
-  "status_messages": [
-    "status 1",
-    "{member_count}",
-    "{bot_version}"
-  ],
-  "status_type": "playing",
-  "status_interval": 60,
-
+  "status": {
+    "messages": [
+      "the {member_count} members",
+      "/help",
+      "{bot_version}"
+    ],
+    "type": "watching",
+    "interval": 5
+  },
   "token": "YOUR_BOT_TOKEN",
   "app_id": "YOUR_APP_ID",
   "server_id": 123456789,
   "target_channel_id": 123456789,
   "embed_color": "00ff00",
-  "bot_version": "BETA v2.11.1"
+  "bot_version": "BETA v2.11.25"
 }

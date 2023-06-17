@@ -20,11 +20,12 @@ class StatusCog(commands.Cog):
             else:
                 member_count = 0
 
-            status_message = random.choice(self.config.get('status_messages'))
+            status_messages = self.config.get('status').get('messages')
+            status_message = random.choice(status_messages)
             status_message = status_message.replace('{member_count}', str(member_count))
             status_message = status_message.replace('{bot_version}', self.config.get('bot_version', ''))
 
-            status_type = self.config.get('status_type')
+            status_type = self.config.get('status').get('type')
             if status_type == 'watching':
                 await self.bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name=status_message))
             elif status_type == 'playing':
@@ -32,7 +33,7 @@ class StatusCog(commands.Cog):
             elif status_type == 'custom':
                 await self.bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.custom, name=status_message))
 
-            await asyncio.sleep(self.config.get('status_interval'))
+            await asyncio.sleep(self.config.get('status').get('interval'))
 
     @commands.Cog.listener()
     async def on_ready(self):
