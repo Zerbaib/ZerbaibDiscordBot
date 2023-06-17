@@ -15,19 +15,6 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
 async def on_ready():
-    for extension in config['extensions']:
-        name = extension['name']
-        enabled = extension['enabled']
-
-        if enabled:
-            try:
-                bot.load_extension(f'cogs.{name}')
-                print(f'Cog chargé : {name}')
-            except Exception as e:
-                print(f'Erreur lors du chargement du cog {name} : {str(e)}')
-        else:
-            print(f'Cog désactivé : {name}')
-
     print('===============================================')
     print("The bot is ready!")
     print(f'Logged in as {bot.user.name}#{bot.user.discriminator} | {bot.user.id}')
@@ -37,6 +24,18 @@ async def on_ready():
     print(f"Python version: {platform.python_version()}")
     print('===============================================')
 
+
+for extension in config['extensions']:
+    name = extension['name']
+    enabled = extension['enabled']
+    if enabled:
+        try:
+            bot.load_extension(f'cogs.{name}')
+            print(f'Cog chargé : {name}')
+        except Exception as e:
+            print(f'Erreur lors du chargement du cog {name} : {str(e)}')
+    else:
+        print(f'Cog désactivé : {name}')
 
 # Lancer le bot
 bot.run(config['token'])
