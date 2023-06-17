@@ -11,7 +11,7 @@ with open('config.json', 'r') as config_file:
 # Créer une instance de bot avec tous les intents activés
 intents = disnake.Intents.all()
 
-bot = commands.Bot(command_prefix='!', intents=intents)
+bot = commands.Bot(command_prefix='!', intents=intents, command_sync_flags = commands.CommandSyncFlags.all())
 
 @bot.event
 async def on_ready():
