@@ -9,10 +9,10 @@ class HelpCog(commands.Cog):
         name='help',
         description='Displays the list of available commands by category',
         options=[
-            disnake.Option(
-                type=3,
+            disnake.option(
                 name='category',
                 description='The category of commands to display',
+                type=3,
                 required=False
             )
         ]
