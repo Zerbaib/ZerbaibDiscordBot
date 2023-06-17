@@ -28,21 +28,19 @@ async def on_ready():
     print(f"Python version: {platform.python_version()}")
     print('===============================================')
 
-    # Charger le cog StatusCog
-    try:
-        bot.load_extension('cogs.status')
-        print('Cog chargé : status')
-    except Exception as e:
-        print(f'Erreur lors du chargement du cog status : {str(e)}')
-
     # Charger les autres cogs depuis le dossier "cogs"
     for extension in config['extensions']:
-        if extension != 'status':
+        name = extension['name']
+        enabled = extension['enabled']
+        
+        if enabled:
             try:
-                bot.load_extension(f'cogs.{extension}')
-                print(f'Cog chargé : {extension}')
+                bot.load_extension(f'cogs.{name}')
+                print(f'Cog chargé : {name}')
             except Exception as e:
-                print(f'Erreur lors du chargement du cog {extension} : {str(e)}')
+                print(f'Erreur lors du chargement du cog {name} : {str(e)}')
+        else:
+            print(f'Cog désactivé : {name}')
 
 # Lancer le bot
 bot.run(config['token'])
