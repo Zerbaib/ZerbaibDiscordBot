@@ -5,7 +5,7 @@ import json
 class AutoRoleCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.config_file = "config.json"
+        self.config_file = "config/config.json"
         self.load_config()
 
     def load_config(self):
