@@ -4,7 +4,8 @@
     "customVoice",
     "moderation",
     "autorole",
-    "status"
+    "status",
+    "help"
   ],
   "level_roles": {
     "10": 123456789,
