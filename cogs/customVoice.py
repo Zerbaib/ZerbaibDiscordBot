@@ -6,7 +6,7 @@ import asyncio
 class CustomVoiceCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.config_file = "config.json"
+        self.config_file = "config/config.json"
         self.temp_channels = {}
         self.load_config()
 
