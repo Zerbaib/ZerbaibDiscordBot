@@ -49,7 +49,7 @@ class HelpCog(commands.Cog):
                     description=commands_info,
                     color=disnake.Color.blurple()
                 )
-                await inter.response.send_message(embed=embed)
+                await inter.response.send_message(embed=embed, ephemeral=True)
 
     @commands.Cog.listener()
     async def on_ready(self):
