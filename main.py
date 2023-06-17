@@ -10,8 +10,6 @@ with open('config.json', 'r') as config_file:
 
 # Créer une instance de bot
 intents = disnake.Intents.default()
-intents.message_content = False  # Désactiver la récupération du contenu des messages
-intents.members = True
 
 bot = commands.InteractionBot(intents=intents)
 
