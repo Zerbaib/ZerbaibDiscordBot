@@ -21,7 +21,7 @@ class HelpCog(commands.Cog):
         if category is None:
             # Display the list of categories
             categories = [cog.qualified_name for cog in self.bot.cogs.values()]
-            category_list = '\n'.join(categories)
+            category_list = '\n'.join(f'`{category}`' for category in categories)
             embed = disnake.Embed(
                 title='List of Categories',
                 description=category_list,
@@ -41,7 +41,7 @@ class HelpCog(commands.Cog):
             else:
                 command_list = []
                 for command in category_cog.get_commands():
-                    command_info = f'**{command.name}**\n{command.description}\n\n'
+                    command_info = f'`{command.name}`: {command.description}\n'
                     command_list.append(command_info)
                 commands_info = '\n'.join(command_list)
                 embed = disnake.Embed(
