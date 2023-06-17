@@ -19,10 +19,6 @@
     {
       "name": "status",
       "enabled": true
-    },
-    {
-      "name": "help",
-      "enabled": false
     }
   ],
   "level_roles": {
