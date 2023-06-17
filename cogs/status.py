@@ -40,6 +40,6 @@ class StatusCog(commands.Cog):
         print('Status cog is ready!')
 
 def setup(bot):
-    with open('config.json', 'r') as config_file:
+    with open('config/config.json', 'r') as config_file:
         config = json.load(config_file)
     bot.add_cog(StatusCog(bot, config))

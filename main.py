@@ -5,7 +5,7 @@ import os
 import json
 
 # Charger les informations de configuration depuis config.json
-with open('config.json', 'r') as config_file:
+with open('config/config.json', 'r') as config_file:
     config = json.load(config_file)
 
 # Créer une instance de bot avec tous les intents activés

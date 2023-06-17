@@ -1,11 +1,12 @@
 {
   "extensions": [
-    {"name": "rank", "enabled": true},
-    {"name": "customVoice", "enabled": true},
-    {"name": "moderation", "enabled": true},
-    {"name": "autorole", "enabled": true},
-    {"name": "status", "enabled": true}
-  ],  
+    {"name": "rank", "enabled": false},
+    {"name": "customVoice", "enabled": false},
+    {"name": "moderation", "enabled": false},
+    {"name": "autorole", "enabled": false},
+    {"name": "status", "enabled": true},
+    {"name": "rolemenu", "enabled": false}
+  ],
   "level_roles": {
     "10": 123456789,
     "25": 123456789,
