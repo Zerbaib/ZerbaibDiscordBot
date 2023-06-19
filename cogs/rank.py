@@ -99,7 +99,7 @@ class RankCog(commands.Cog):
 
     @commands.slash_command(name='leaderboard', description='Show the top 10 xp leaderboard')
     async def leaderboard(self, inter: disnake.ApplicationCommandInteraction):
-        sorted_users = sorted(self.data.items(), key=lambda x: (x[1]["level"], x[1]["xp"]), reverse=True)
+        sorted_users = sorted(self.ranks.items(), key=lambda x: (x[1]["level"], x[1]["xp"]), reverse=True)
         embed = disnake.Embed(title="Leaderboard", color=self.embed_color)
         for i, (user_id, user_data) in enumerate(sorted_users):
             try:
