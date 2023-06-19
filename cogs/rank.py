@@ -82,7 +82,7 @@ class RankCog(commands.Cog):
         else:
             user_id = str(user.id)
             user_name = str(user)
-
+        
         if user_id in self.ranks:
             xp = self.ranks[user_id]["xp"]
             level = self.ranks[user_id]["level"]
@@ -114,10 +114,10 @@ class RankCog(commands.Cog):
         await inter.send(embed=embed)
 
     def get_user_rank(self, user_id):
-        sorted_ranks = sorted(self.ranks.items(), key=lambda x: x[1]["xp"], reverse=True)
+        sorted_ranks = sorted(self.ranks.items(), key=lambda x: (x[1]["level"], x[1]["xp"]), reverse=True)
         for i, (id, _) in enumerate(sorted_ranks):
             if id == user_id:
-                return i+1
+                return i + 1
 
         return -1
 
