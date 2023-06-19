@@ -82,13 +82,14 @@ class RankCog(commands.Cog):
         else:
             user_id = str(user.id)
             user_name = str(user)
-        
+
         if user_id in self.ranks:
             xp = self.ranks[user_id]["xp"]
             level = self.ranks[user_id]["level"]
             xp_required = 5 * (level ** 2) + 10 * level + 10
+            user_rank = self.get_user_rank(user_id)
             embed = disnake.Embed(
-                title=f"{user_name}'s rank -> #{self.get_user_rank(user_id)}",
+                title=f"{user_name}'s rank -> #{user_rank}",
                 description=f'**Level:** ```{level}```\n**XP:** ``{xp}``\n*Need* ``{xp_required}`` *to win one level*',
                 color=self.embed_color
             )
@@ -96,6 +97,7 @@ class RankCog(commands.Cog):
             await inter.response.send_message(embed=embed)
         else:
             await inter.response.send_message(f'{user_name} does not have a rank yet.')
+
 
     @commands.slash_command(name='leaderboard', description='Show the top 10 xp leaderboard')
     async def leaderboard(self, inter: disnake.ApplicationCommandInteraction):
