@@ -17,3 +17,5 @@ For repo got to:
 - - server: https://discord.gg/ESzHqadj5J
 - Mail:
 - - hugo.hennetin@proton.me
+- Issues:
+- - [here](https://github.com/Zerbaib/ZerbaibDiscordBot/issues/new/choose)
