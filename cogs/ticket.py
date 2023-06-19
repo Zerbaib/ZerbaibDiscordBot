@@ -47,7 +47,7 @@ class Ticket_Command(commands.Cog):
 
 
     #Slash Command to show the Ticket Menu in the Ticket Channel only needs to be used once
-    @commands.slash_command(name="ticket")
+    @commands.slash_command(name="ticket", description="Create panel")
     @has_permissions(administrator=True)
     async def ticket(self, ctx):
         self.channel = self.bot.get_channel(TICKET_CHANNEL)
