@@ -6,7 +6,8 @@
     {"name": "autorole", "enabled": false},
     {"name": "status", "enabled": true},
     {"name": "rolemenu", "enabled": false},
-    {"name": "ticket", "enabled": false}
+    {"name": "ticket", "enabled": false},
+    {"name": "invite", "enabled": false}
   ],
   "level_roles": {
     "10": 123456789,
@@ -33,5 +34,5 @@
   "target_channel_id": 123456789,
   "embed_color": "00ff00",
   "timezone": "CET",
-  "bot_version": "BETA v2.12.7"
+  "bot_version": "BETA v2.12.10"
 }
