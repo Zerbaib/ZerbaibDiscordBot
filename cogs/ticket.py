@@ -17,7 +17,7 @@ with open("config/ticket.json", mode="r") as config_file:
     ticket = json.load(config_file)
 
 TICKET_CHANNEL = ticket["ticket_channel_id"] #Ticket Channel where the Bot should send the SelectMenu + Embed
-GUILD_ID = config["guild_id"] #Your Server ID aka Guild ID  
+GUILD_ID = config["server_id"] #Your Server ID aka Guild ID  
 
 LOG_CHANNEL = ticket["log_channel_id"] #Where the Bot should log everything 
 TIMEZONE = config["timezone"] #Timezone use https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List and use the Category 'Time zone abbreviation' for example: Europe = CET, America = EST so you put in EST or EST ...
