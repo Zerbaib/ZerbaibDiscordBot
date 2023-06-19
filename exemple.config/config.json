@@ -1,6 +1,6 @@
 {
   "extensions": [
-    {"name": "rank", "enabled": false},
+    {"name": "rank", "enabled": true},
     {"name": "customVoice", "enabled": false},
     {"name": "moderation", "enabled": false},
     {"name": "autorole", "enabled": false},
