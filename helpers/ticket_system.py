@@ -13,7 +13,7 @@ with open("config/config.json", mode="r") as config_file:
 with open("config/ticket.json", mode="r") as config_file:
     ticket = json.load(config_file)
 
-GUILD_ID = config["guild_id"] #Your Server ID aka Guild ID 
+GUILD_ID = config["server_id"] #Your Server ID aka Guild ID 
 TICKET_CHANNEL = ticket["ticket_channel_id"] #Ticket Channel where the Bot should send the SelectMenu + Embed
 
 CATEGORY_ID1 = ticket["category_id_1"] #Category 1 where the Bot should open the Ticket for the Ticket option 1
