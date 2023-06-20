@@ -20,13 +20,32 @@ class InviteCog(commands.Cog):
             json.dump(self.invite_data, file, indent=4)
 
     @commands.Cog.listener()
-    async def on_invite_create(self, invite):
-        inviter_id = str(invite.inviter.id)
+    async def on_member_join(self, member):
+        guild = member.guild
+        invites_before = self.invite_data.get(guild.id, {})
+        invites_after = await guild.invites()
 
-        if inviter_id not in self.invite_data:
-            self.invite_data[inviter_id] = 1
-        else:
-            self.invite_data[inviter_id] += 1
+        for invite in invites_after:
+            if invite.uses > invites_before.get(invite.code, 0):
+                inviter_id = str(invite.inviter.id)
+                if inviter_id not in self.invite_data:
+                    self.invite_data[inviter_id] = 1
+                else:
+                    self.invite_data[inviter_id] += 1
+
+        self.save_invite_data()
+
+    @commands.Cog.listener()
+    async def on_member_remove(self, member):
+        guild = member.guild
+        invites_before = self.invite_data.get(guild.id, {})
+        invites_after = await guild.invites()
+
+        for invite in invites_after:
+            if invite.uses < invites_before.get(invite.code, 0):
+                inviter_id = str(invite.inviter.id)
+                if inviter_id in self.invite_data:
+                    self.invite_data[inviter_id] -= 1
 
         self.save_invite_data()
 
