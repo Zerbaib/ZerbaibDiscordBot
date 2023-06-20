@@ -20,35 +20,15 @@ class InviteCog(commands.Cog):
             json.dump(self.invite_data, file, indent=4)
 
     @commands.Cog.listener()
-    async def on_member_update(self, before, after):
-        if len(before.activities) == len(after.activities):
-            return
+    async def on_invite_create(self, invite):
+        inviter_id = str(invite.inviter.id)
 
-        for before_activity, after_activity in zip(before.activities, after.activities):
-            if (
-                isinstance(before_activity, disnake.Activity)
-                and before_activity.type is disnake.ActivityType.invite
-                and isinstance(after_activity, disnake.Activity)
-                and after_activity.type is disnake.ActivityType.invite
-            ):
-                inviter = before_activity.inviter
-                invitee = after_activity.inviter
-                if inviter == invitee:
-                    continue
+        if inviter_id not in self.invite_data:
+            self.invite_data[inviter_id] = 1
+        else:
+            self.invite_data[inviter_id] += 1
 
-                inviter_id = str(inviter.id)
-                invitee_id = str(invitee.id)
-
-                if inviter_id not in self.invite_data:
-                    self.invite_data[inviter_id] = 1
-                else:
-                    self.invite_data[inviter_id] += 1
-
-                if invitee_id in self.invite_data:
-                    self.invite_data[inviter_id] -= 1
-                    self.invite_data[invitee_id] -= 1
-
-                self.save_invite_data()
+        self.save_invite_data()
 
     @commands.slash_command(name="invites", description="Displays the number of invites for a member")
     async def invites(self, ctx, member: disnake.Member):
