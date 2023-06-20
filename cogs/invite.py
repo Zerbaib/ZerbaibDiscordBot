@@ -50,35 +50,35 @@ class InviteCog(commands.Cog):
 
                 self.save_invite_data()
 
-    @commands.slash_command(name="invites", description="Affiche le nombre d'invitations d'un membre")
+    @commands.slash_command(name="invites", description="Displays the number of invites for a member")
     async def invites(self, ctx, member: disnake.Member):
         member_id = str(member.id)
         if member_id in self.invite_data:
             invite_count = self.invite_data[member_id]
-            await ctx.send(f"{member.display_name} a invité {invite_count} personne(s).")
+            await ctx.send(f"{member.display_name} has invited {invite_count} person(s).")
         else:
-            await ctx.send(f"{member.display_name} n'a aucune invitation.")
+            await ctx.send(f"{member.display_name} has no invitations.")
 
-    @commands.slash_command(name="clear-invites", description="Efface les invitations d'un membre")
+    @commands.slash_command(name="clear-invites", description="Clears the invites of a member")
     async def clear_invites(self, ctx, member: disnake.Member):
         member_id = str(member.id)
         if member_id in self.invite_data:
             del self.invite_data[member_id]
             self.save_invite_data()
-            await ctx.send(f"Les invitations de {member.display_name} ont été effacées.")
+            await ctx.send(f"The invitations of {member.display_name} have been cleared.")
         else:
-            await ctx.send(f"{member.display_name} n'a aucune invitation à effacer.")
+            await ctx.send(f"{member.display_name} has no invitations to clear.")
 
-    @commands.slash_command(name="top-invite", description="Affiche les 10 meilleurs membres avec le plus d'invitations")
+    @commands.slash_command(name="top-invite", description="Displays the top 10 members with the most invitations")
     async def top_invite(self, ctx):
         sorted_invites = sorted(self.invite_data.items(), key=lambda x: x[1], reverse=True)
         top_10 = sorted_invites[:10]
 
-        embed = disnake.Embed(title="Top 10 des membres avec le plus d'invitations")
+        embed = disnake.Embed(title="Top 10 Members with the Most Invitations")
         for idx, (member_id, invite_count) in enumerate(top_10, start=1):
             member = self.bot.get_user(int(member_id))
             if member:
-                embed.add_field(name=f"{idx}. {member.display_name}", value=f"Invitations : {invite_count}", inline=False)
+                embed.add_field(name=f"{idx}. {member.display_name}", value=f"Invitations: {invite_count}", inline=False)
 
         await ctx.send(embed=embed)
 
