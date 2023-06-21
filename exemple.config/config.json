@@ -23,7 +23,8 @@
     "messages": [
       "the {member_count} members",
       "/help",
-      "{bot_version}"
+      "{bot_version}",
+      "Love u"
     ],
     "type": "watching",
     "interval": 5
