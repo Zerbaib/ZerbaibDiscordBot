@@ -90,6 +90,15 @@ class ModerationCog(commands.Cog):
         else:
             await ctx.send(f"{member.mention} has no warnings.")
 
+    @commands.slash_command(name="clear", description="Clear a specified number of messages.")
+    @commands.has_permissions(manage_messages=True)
+    async def slash_clear(self, ctx, amount: int):
+        """Clear a specified number of messages."""
+        await ctx.channel.purge(limit=amount + 1)
+        message = await ctx.send(f"Cleared {amount} messages.")
+        await asyncio.sleep(5)
+        await message.delete()
+
     @commands.Cog.listener()
     async def on_ready(self):
         print('Moderation cog is ready!')
