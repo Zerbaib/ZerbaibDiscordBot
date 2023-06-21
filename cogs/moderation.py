@@ -94,7 +94,7 @@ class ModerationCog(commands.Cog):
     @commands.has_permissions(manage_messages=True)
     async def slash_clear(self, ctx, amount: int):
         """Clear a specified number of messages."""
-        await ctx.channel.purge(limit=amount + 1)
+        await ctx.channel.purge(limit=amount)
 
         embed = disnake.Embed(
             title="Message Clear",
