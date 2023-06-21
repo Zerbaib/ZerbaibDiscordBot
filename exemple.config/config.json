@@ -1,7 +1,7 @@
 {
   "extensions": [
     {"name": "rank", "enabled": true},
-    {"name": "customVoice", "enabled": false},
+    {"name": "customVoice", "enabled": true},
     {"name": "moderation", "enabled": false},
     {"name": "autorole", "enabled": false},
     {"name": "status", "enabled": true},
@@ -34,5 +34,5 @@
   "target_channel_id": 123456789,
   "embed_color": "00ff00",
   "timezone": "CET",
-  "bot_version": "BETA v2.12.20"
+  "bot_version": "BETA v2.12.24"
 }
