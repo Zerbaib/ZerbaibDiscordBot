@@ -97,8 +97,7 @@ class ModerationCog(commands.Cog):
         """Clear a specified number of messages."""
         await ctx.channel.purge(limit=amount + 1)
         message = await ctx.send(f"Cleared {amount} messages.")
-        await asyncio.sleep(5)
-        await message.delete()
+        await message.delete(delay=5)
 
     @commands.Cog.listener()
     async def on_ready(self):
