@@ -95,8 +95,7 @@ class ModerationCog(commands.Cog):
     async def slash_clear(self, ctx, amount: int):
         """Clear a specified number of messages."""
         await ctx.channel.purge(limit=amount + 1)
-        message = await ctx.send(f"Cleared {amount} messages.")
-        await message.delete(delay=5)
+        await ctx.send(f"Cleared {amount} messages.", delete_after=5)
 
     @commands.Cog.listener()
     async def on_ready(self):
