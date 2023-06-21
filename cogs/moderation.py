@@ -1,6 +1,5 @@
 import disnake
 from disnake.ext import commands
-import asyncio
 import json
 
 class ModerationCog(commands.Cog):
