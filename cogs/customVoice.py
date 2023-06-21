@@ -21,8 +21,8 @@ class CustomVoiceCog(commands.Cog):
             guild = member.guild
             category = after.channel.category
             overwrites = {
-                guild.default_role: disnake.PermissionOverwrite(connect=False),
-                member: disnake.PermissionOverwrite(connect=True)
+                guild.default_role: disnake.PermissionOverwrite(connect=True),
+                member: disnake.PermissionOverwrite(connect=True, manage_channels=True)
             }
 
             channel = await guild.create_voice_channel(name=member.name, overwrites=overwrites, category=category)
@@ -61,5 +61,5 @@ class CustomVoiceCog(commands.Cog):
         print('CustomVoice cog is ready!')
         self.bot.loop.create_task(self.delete_temporary_channels())
 
-def setup(bot):  # Remplacez par le chemin vers votre fichier de configuration JSON
+def setup(bot):
     bot.add_cog(CustomVoiceCog(bot))
